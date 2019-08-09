@@ -40,14 +40,8 @@ class Subject {
     }
 
 
-    int TotalTopics(int topic, int subTopic)
+    void Calculated(int days)
     {
-        Total = Topic * SubTopic;
-        return Total;
-    }
-    int Calculated(int days)
-    {
-        Total = TotalTopics(getTopic(),getSubTopic()) / days;           //Subject needs to be done each days
-        return Total;
+        Total = (Topic * SubTopic) / days;           //Subject needs to be done each days
     }
 }

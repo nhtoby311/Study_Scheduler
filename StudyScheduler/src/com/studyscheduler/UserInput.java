@@ -65,12 +65,12 @@ public class UserInput {
         Input = new Subject();                                          //Store subject, new so can add to list
         System.out.println("Name:");
         Input.setName(a.nextLine());
-        System.out.println("Number of topics:" + " ([topics x subtopics] has to larger than:" + Days/7*date.length + ")");
+        System.out.println("Number of topics:" + " ([topics x subtopics] has to larger than:" + (Days/7)*date.length + "-> bc u assign "+ date.length + "days/week" + ")");
         Input.setTopic(Integer.parseInt(a.nextLine()));
         System.out.println("Number of subtopics:");
         Input.setSubTopic(Integer.parseInt(a.nextLine()));
 
-        Input.Calculated(Days/7*date.length);          //Subject per day
+        Input.Calculated((Days/7)*date.length);          //Subject per day
         list.add(Input);                                    //add to list
         System.out.println("More?:(y/n)");
     }
@@ -86,7 +86,11 @@ public class UserInput {
         DaySet_Confirm();                               //Yes or no confirm
 
         if (ValidateDate())                             //Check if date appropriate
-        setDays(CalculateDaysLeft());
+        {
+            setDays(CalculateDaysLeft());
+            System.out.println("***You have: " + getDays() + " day(s) left***");
+            System.out.println();
+        }
 
 
         else
@@ -97,41 +101,33 @@ public class UserInput {
             }
 
     }
+
+
+
+
     private int CalculateDaysLeft()                                 //Calculate day left
     {
         int result = 0;
-            result = (years - Nyears) * 365;
-            if (Nmonth >= month)
-                result = result - (month - Nmonth) * 30;
-            else
-                result = result + (month - Nmonth) * 30;
-            if (Nday >= day)
-                result = result - (day - Nday);
-            else
-                result = result +(day -Nday);
-
+        result = Calculated_Month(month,years) + day - Nday;
         return result;
     }
+
     private boolean ValidateDate()
     {
-        if (Nyears < years)
-        {
-            return true;
-        }
-        else if (Nyears == years)
-        {
-            if (Nmonth < month)
-            {
+        if ((ValidateMonth() && ValidateDay())) {
+            if (Nyears < years) {
                 return true;
-            }
-            else if (Nmonth == month)
-            {
-                return Nday < day;
-            }
-            else
-                {
+            } else if (Nyears == years) {
+                if (Nmonth < month) {
+                    return true;
+                } else if (Nmonth == month) {
+                    return Nday < day;
+                } else {
                     return false;
                 }
+            } else {
+                return false;
+            }
         }
         else
             {
@@ -154,4 +150,82 @@ public class UserInput {
             DaySet_Confirm();
         }
     }
+
+
+    private int Month_to_Day(int month_deadline,int Years)                  //Every month to days
+        {
+            int result = 0;
+            switch (month_deadline) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                    case 12:
+                    result = 31;
+                    return result;
+
+                case 2:
+                    if ((Years - 2016)%4 == 0 )
+                    {
+                        result = 29;
+                        return result;
+                    }
+                    else{
+                    result = 28;
+                    return result;}
+
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    result = 30;
+                    return result;
+
+
+            }
+            return result;
+        }
+
+        private int Calculated_Month (int month_deadline,int Years)
+        {
+            int result = 0;
+            if (Years == Nyears && month_deadline == Nmonth)                // stop at the current time
+            {
+                return result;
+            }
+            else
+            {
+                if (month_deadline  > 1 ) {
+
+                    result += Month_to_Day(month_deadline -1 , Years) + Calculated_Month(month_deadline - 1, Years);       //add a month apart. go from deadline to current date, dont calculate the deadline month.
+                }
+                else        // at month_deadline == 1, January
+                    {
+                        result += Month_to_Day(12, Years) + Calculated_Month(12, Years-1);          //if Years of deadline is > then the current date.
+                    }
+            }
+            return result;
+        }
+
+        private boolean ValidateMonth()
+        {
+            boolean result = false;
+            if (month > 0 && month < 13)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private boolean ValidateDay()
+        {
+            boolean result = false;
+            if (day > 0 && month < 32)
+            {
+                result = true;
+            }
+            return result;
+        }
 }
