@@ -8,6 +8,6 @@ Are you tired of planning study schedule before the big exam? Then, are you fail
 - Then, after some calculation, you will receive a table shows how much subtopics you need to complete for each day in order to finish the subjects by the deadline.
 ### What makes *__Study_Scheduler__* stands out? 
 - I basically code 3 methods just to find the days aparts of two given dates, while i can do the same thing with java.time...
-&nbsp;
+<br />
 So...
 ![](images/work.jpg)
