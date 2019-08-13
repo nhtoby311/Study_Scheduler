@@ -6,3 +6,5 @@ Are you tired of planning study schedule before the big exam? Then, are you fail
 - You choose the deadline(haha.. no u dont), then the program calculated the period you have before the deadline.
 - You create a subject with the amounts of topics and subtopics you need to cover. 
 - Then, after some calculation, you will receive a table shows how much subtopics you need to complete for each day in order to finish the subjects by the deadline.  
+###What makes *__Study_Scheduler__* stands out? 
+- I basically code 3 methods just to find the days aparts of two given dates, while i can do the samething with java.time... So...
